@@ -1,0 +1,54 @@
+from pyDatalog import pyDatalog
+
+pyDatalog.create_terms('Usuario, Compra, Producto, Recomendar, Similar, Categoria, Preferencia, P, S, C')
+
+# Definir hechos sobre compras de los usuarios
++Compra('usuario1', 'laptop')
++Compra('usuario1', 'mouse')
++Compra('usuario2', 'zapatillas')
++Compra('usuario2', 'camiseta')
++Compra('usuario3', 'smartphone')
++Compra('usuario3', 'auriculares')
+
+# Definir categorías de productos
++Categoria('laptop', 'tecnologia')
++Categoria('mouse', 'tecnologia')
++Categoria('teclado', 'tecnologia')
++Categoria('monitor', 'tecnologia')
++Categoria('zapatillas', 'moda')
++Categoria('camiseta', 'moda')
++Categoria('pantalón', 'moda')
++Categoria('calcetines', 'moda')
++Categoria('smartphone', 'tecnologia')
++Categoria('auriculares', 'tecnologia')
+
+# Definir relaciones de productos similares
++Producto('laptop', 'teclado')
++Producto('laptop', 'monitor')
++Producto('mouse', 'alfombrilla')
++Producto('zapatillas', 'calcetines')
++Producto('zapatillas', 'shorts')
++Producto('camiseta', 'pantalón')
++Producto('smartphone', 'funda')
++Producto('smartphone', 'cargador')
++Producto('auriculares', 'adaptador_bluetooth')
+
+# Definir preferencias del usuario por categorías
++Preferencia('usuario1', 'tecnologia')
++Preferencia('usuario2', 'moda')
++Preferencia('usuario3', 'tecnologia')
+
+# Definir regla para recomendar productos basados en compras previas
+Recomendar(U, S) <= Compra(U, P) & Producto(P, S)
+
+# Regla para recomendar productos dentro de la categoría de interés del usuario
+Recomendar(U, S) <= Preferencia(U, C) & Categoria(S, C)
+
+# Consultar recomendaciones para un usuario
+def obtener_recomendaciones(usuario):
+    resultado = Recomendar(usuario, S)
+    return list(resultado)
+
+print("Recomendaciones para usuario1:", obtener_recomendaciones('usuario1'))
+print("Recomendaciones para usuario2:", obtener_recomendaciones('usuario2'))
+print("Recomendaciones para usuario3:", obtener_recomendaciones('usuario3'))
