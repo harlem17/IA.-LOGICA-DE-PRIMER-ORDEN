@@ -2,15 +2,15 @@ from pyDatalog import pyDatalog
 
 pyDatalog.create_terms('Usuario, Compra, Producto, Recomendar, Similar, Categoria, Preferencia, P, S, C')
 
-# Definir hechos sobre compras de los usuarios
-+Compra('usuario1', 'laptop')
-+Compra('usuario1', 'mouse')
-+Compra('usuario2', 'zapatillas')
-+Compra('usuario2', 'camiseta')
-+Compra('usuario3', 'smartphone')
-+Compra('usuario3', 'auriculares')
+# hechos, compras de cada usuario
++Compra('cliente1', 'laptop')
++Compra('cliente1', 'mouse')
++Compra('cliente2', 'zapatillas')
++Compra('cliente2', 'camiseta')
++Compra('cliente3', 'smartphone')
++Compra('cliente3', 'auriculares')
 
-# Definir categorías de productos
+# categorías de productos
 +Categoria('laptop', 'tecnologia')
 +Categoria('mouse', 'tecnologia')
 +Categoria('teclado', 'tecnologia')
@@ -22,7 +22,7 @@ pyDatalog.create_terms('Usuario, Compra, Producto, Recomendar, Similar, Categori
 +Categoria('smartphone', 'tecnologia')
 +Categoria('auriculares', 'tecnologia')
 
-# Definir relaciones de productos similares
+# relaciones de productos similares
 +Producto('laptop', 'teclado')
 +Producto('laptop', 'monitor')
 +Producto('mouse', 'alfombrilla')
@@ -33,12 +33,12 @@ pyDatalog.create_terms('Usuario, Compra, Producto, Recomendar, Similar, Categori
 +Producto('smartphone', 'cargador')
 +Producto('auriculares', 'adaptador_bluetooth')
 
-# Definir preferencias del usuario por categorías
+# preferencias del usuario por categorías
 +Preferencia('usuario1', 'tecnologia')
 +Preferencia('usuario2', 'moda')
 +Preferencia('usuario3', 'tecnologia')
 
-# Definir regla para recomendar productos basados en compras previas
+# regla para recomendar productos basados en compras previas
 Recomendar(U, S) <= Compra(U, P) & Producto(P, S)
 
 # Regla para recomendar productos dentro de la categoría de interés del usuario
